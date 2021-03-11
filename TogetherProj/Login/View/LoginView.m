@@ -14,8 +14,6 @@
 
 @interface LoginView()
 
-@property (nonatomic, strong) MBProgressHUD *hud;
-
 @end
 
 @implementation LoginView
@@ -23,8 +21,6 @@
 - (instancetype) initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor whiteColor];
-        _dic = [NSMutableDictionary dictionary];
-        _model = [[UserModel alloc] init];
         
         // 用户名Label
         _userNameLabel = [[UILabel alloc] init];
@@ -105,37 +101,9 @@
 #pragma mark 跳转到相应的界面
 // 登陆
 - (void) Login {
-    _dic[@"userName"] = _userNameField.text;
-    _dic[@"passWord"] = _passwordField.text;
-    _model = [UserModel modelWithDic:_dic];
-    NSLog(@"%@ ==== %@",_model.userName,_model.passWord);
-    if ([[self canLoginWithUserDic:_model] isEqualToString:@"欧阳紫浩"]) {
-        //跳转
-        NSLog(@"登陆成功");
-    }else if ([[self canLoginWithUserDic:_model] isEqualToString:@"杨辰昊"]){
-        // 跳转
-        NSLog(@"登陆成功");
-    }else {
-        [self hud:_hud setUpHud:@"账号密码错误"];
+    if ([self.delegate respondsToSelector:@selector(Login)]) {
+        [self.delegate Login];
     }
-}
-
-
-- (NSString *)canLoginWithUserDic:(UserModel *)model {
-    if ([model.userName isEqualToString:@"OYZH"] && [model.passWord isEqualToString:@"123456"]) {
-        return @"欧阳紫浩";
-    } else if ([model.userName isEqualToString:@"YCH"] && [model.passWord isEqualToString:@"654321"]) {
-        return @"杨辰昊";
-    }
-    return @"";
-}
-
-- (void) hud:(MBProgressHUD *)hud setUpHud:(NSString *)remindLabel {
-    hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
-    hud.animationType = MBProgressHUDAnimationZoomOut;
-    hud.mode = MBProgressHUDModeText;
-    hud.label.text = remindLabel;
-    [hud hideAnimated:YES afterDelay:1.2];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField

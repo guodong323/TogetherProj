@@ -23,10 +23,11 @@
     //2.创建导航控制器
     LoginViewController *loginVC = [[LoginViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
+    nav.navigationBar.backgroundColor = [UIColor redColor];
+    nav.navigationBar.topItem.title = @"登陆";
     
     //3.设置根控制器
     self.window.rootViewController = nav;
-    self.window.rootViewController.navigationController.title = @"登陆";
     
     //4.显示窗口
     [self.window makeKeyAndVisible];

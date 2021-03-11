@@ -10,6 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol LoginViewDelegate <NSObject>
+
+- (void)Login;
+
+@end
+
 
 @interface LoginView : UIView
 
@@ -23,13 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UITextField *passwordField;
 // 登陆按钮
 @property (nonatomic, strong) UIButton *loginBtn;
-// 用户信息字典
-@property (nonatomic, strong) NSMutableDictionary *dic;
-// 用户登陆模型
-@property (nonatomic, strong) UserModel *model;
+// 登陆界面代理
+@property (nonatomic, weak) id<LoginViewDelegate> delegate;
 
- 
-- (NSString *)canLoginWithUserDic:(UserModel *)model;
 
 @end
 
